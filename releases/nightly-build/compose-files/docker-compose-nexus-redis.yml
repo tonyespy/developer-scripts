@@ -327,31 +327,31 @@ services:
       - consul
 #      - logging  # uncomment is re-enabled remote logging
       - scheduler
-      - notifications
+#      - notifications
       - metadata
       - data
       - command
 
-  notifications:
-    image: nexus3.edgexfoundry.org:10004/docker-support-notifications-go:master
-    ports:
-      - "127.0.0.1:48060:48060"
-    container_name: edgex-support-notifications
-    hostname: edgex-support-notifications
-    networks:
-      - edgex-network
-    environment:
-      <<: *common-variables
-      Service_Host: edgex-support-notifications
-      SecretStore_TokenFile: /tmp/edgex/secrets/edgex-support-notifications/secrets-token.json
-    volumes:
-      - /tmp/edgex/secrets/ca:/tmp/edgex/secrets/ca:ro,z
-      - /tmp/edgex/secrets/edgex-support-notifications:/tmp/edgex/secrets/edgex-support-notifications:ro,z
-    depends_on:
-      - consul
+#  notifications:
+#    image: nexus3.edgexfoundry.org:10004/docker-support-notifications-go:master
+#    ports:
+#      - "127.0.0.1:48060:48060"
+#    container_name: edgex-support-notifications
+#    hostname: edgex-support-notifications
+#    networks:
+#      - edgex-network
+#    environment:
+#      <<: *common-variables
+#      Service_Host: edgex-support-notifications
+#      SecretStore_TokenFile: /tmp/edgex/secrets/edgex-support-notifications/secrets-token.json
+#    volumes:
+#      - /tmp/edgex/secrets/ca:/tmp/edgex/secrets/ca:ro,z
+#      - /tmp/edgex/secrets/edgex-support-notifications:/tmp/edgex/secrets/edgex-support-notifications:ro,z
+#    depends_on:
+#      - consul
 #      - logging  # uncomment is re-enabled remote logging
-      - redis
-      - vault-worker
+#      - redis
+#      - vault-worker
 
   metadata:
     image: nexus3.edgexfoundry.org:10004/docker-core-metadata-go:master
@@ -373,7 +373,7 @@ services:
       - consul
 #      - logging  # uncomment is re-enabled remote logging
       - redis
-      - notifications
+#     - notifications
       - vault-worker
 
   data:
