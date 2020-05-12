@@ -25,7 +25,7 @@ x-common-env-variables: &common-variables
   Clients_Metadata_Host: edgex-core-metadata
   Clients_Command_Host: edgex-core-command
   Clients_Scheduler_Host: edgex-support-scheduler
-  Clients_RulesEngine_Host: edgex-kuiper
+  Clients_RulesEngine_Host: edgex-support-rulesengine
   Clients_VirtualDevice_Host: edgex-device-virtual
   Databases_Primary_Type: redisdb
   Databases_Primary_Host: edgex-redis
@@ -472,41 +472,18 @@ services:
       - data
       - vault-worker
 
-  rulesengine:
-    image: emqx/kuiper:0.3.2
-    ports:
-      - "127.0.0.1:48075:48075"
-      - "127.0.0.1:20498:20498"
-    container_name: edgex-kuiper
-    hostname: edgex-kuiper
-    networks:
-      edgex-network:
-        aliases:
-          - edgex-kuiper
-    environment:
-      # KUIPER_DEBUG: "true"
-      KUIPER_CONSOLE_LOG: "true"
-      KUIPER_REST_PORT: 48075
-      EDGEX_SERVER: edgex-app-service-configurable-rules
-      EDGEX_SERVICE_SERVER: http://edgex-core-data:48080
-      EDGEX_TOPIC: events
-      EDGEX_PROTOCOL: tcp
-      EDGEX_PORT: 5566
-    depends_on:
-      - app-service-rules
-
-  # rulesengine:
-  #   image: nexus3.edgexfoundry.org:10004/docker-support-rulesengine:master
-  #   ports:
-  #     - "127.0.0.1:48075:48075"
-  #   container_name: edgex-support-rulesengine
-  #   hostname: edgex-support-rulesengine
-  #   networks:
-  #     edgex-network:
-  #       aliases:
-  #         - edgex-support-rulesengine
-  #   depends_on:
-  #     - app-service-rules
+    rulesengine:
+      image: nexus3.edgexfoundry.org:10004/docker-support-rulesengine:master
+      ports:
+        - "127.0.0.1:48075:48075"
+      container_name: edgex-support-rulesengine
+      hostname: edgex-support-rulesengine
+      networks:
+        edgex-network:
+          aliases:
+            - edgex-support-rulesengine
+      depends_on:
+        - app-service-rules
 
 #################################################################
 # Device Services
